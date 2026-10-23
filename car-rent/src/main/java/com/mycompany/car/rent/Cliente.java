@@ -1,89 +1,69 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.car.rent;
 
-/**
- *
- * @author marti
- */
 public class Cliente {
 
-    public static void main(String[] args) {
-    }
+    // 1. definir atributos
     private String cedula;
     private String nombre;
-    private Boolean vigencia;
+    private Boolean vigente;
 
-    // Validaciones
-
-    public boolean validarNombre(String nombre) {
-        return nombre != null && !nombre.trim().isEmpty();
-    }
-         // El largo debe ser de 10 caracteres
-    public boolean validarCedula(String cedula) {
-        if (cedula == null || cedula.length() != 10) {
-            return false;                       
-        }
-
-         // El penúltimo debe ser el guion
-        if (cedula.charAt(8) != '-') {
-            return false;                       
-        }
-        
-        // Las 8 primeras deben ser dígitos
-        for (int i = 0; i < 8; i++) {           
-            if (!Character.isDigit(cedula.charAt(i))) {
-                return false;
-            }
-        }
-         // El ultimo caracter de ser un numero o una k
-        
-        char dv = cedula.charAt(9);                   
-        return Character.isDigit(dv) || dv == 'k' ;
-    }
-
-    // Getters y Setters (Hay que completarlos)
-    
-    public String getCedula() {
-        return cedula;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public Boolean getVigencia() {
-        return vigencia;
-    }
-
-    public void setCedula(String cedula) {
-        if (validarCedula(cedula)) {
-            this.cedula = cedula;
-        } else {
-            System.out.println("Cédula inválida: " + cedula);
-        }
-    }
-
-    public void setNombre(String nombre) {
-        if (validarNombre(nombre)) {
-            this.nombre = nombre.trim();
-        } else {
-            System.out.println("Nombre inválido: " + nombre);
-        }
-    }
-
-    // Constuctor (todo usuario nuevo empieza vigente)
+    // 2. Constuctor (todo usuario nuevo empieza vigente)
 
     public Cliente(String cedula, String nombre) {
         setCedula(cedula);
         setNombre(nombre);
-        this.vigencia = true;
+        this.vigente = true;
     }
-}
 
-    
-    
-    
+    // Metodos de la clase y setters
+    public boolean validarCedula(String cedula){
+        return cedula != null && cedula.length() == 10 && cedula.charAt(8) == '-';
+    }
+
+    public void setCedula(String cedula){
+        if (validarCedula(cedula)) {
+            this.cedula = cedula;
+        }
+    }
+
+    public void setNombre(String nombre) {
+        if (nombre != null && !nombre.trim().isEmpty()) {
+            this.nombre = nombre;
+        } else {
+            mostrarMensaje("Error el nombre no puede estar vacío");
+        }
+    }
+
+    // Getters
+
+
+    public String getCedula() {
+        return cedula;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+    public Boolean isVigente() {
+        return vigente;
+    }
+
+    // Mostrar estado del cliente
+    public void mostrarEstado(){
+        System.out.println("____Estado del cliente____");
+        System.out.println("Cedula: " + this.cedula);
+        System.out.println("Nombre: " + this.nombre);
+        System.out.println("Vigencia: " + this.vigente);
+    }
+
+    // Metodo para mostrar mensajes de error al cliente
+    public void mostrarMensaje(String mensaje){
+        System.out.println("CLIENTE: " + mensaje);
+    }
+
+
+    // Metodo para deshabilitar un cliente
+    public void deshabilitar(){
+        this.vigente = false;
+        mostrarMensaje("El cliente ha sido deshabilitado");
+    }
 }
