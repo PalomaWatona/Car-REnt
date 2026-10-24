@@ -37,7 +37,7 @@ public String toString(){
 //Metodos
 
 public boolean ingresarDevolucion(Vehiculo vehiculo) {
-        if (arriendo == null) {
+        if (numero == null) {
             mostrarMensaje("La devolucion no tiene un arriendo asociado.");
             return false;
         }
